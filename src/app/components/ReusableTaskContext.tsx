@@ -6,7 +6,13 @@ import { useEffect, useState } from "react";
 import { RootState, useAppDispatch } from "../api/store";
 import { getTokenAsync } from "../api/reduxFeatures/authSlice";
 import { useSelector } from "react-redux";
-
+import ReusableTooltipButton from "./ReusableTooltipButton";
+import TooltipButton from "../assets/icons/tooltip_button.png";
+import SendButton from "../assets/icons/formik_button.png";
+import InputFrame from "../assets/icons/input_frame.png";
+import ReusableFormikButton from "./ReusableFormikButton";
+import TokenFrame from "../assets/icons/token_frame.png"
+import ReusableTokenInput from "./ReusableTokenInput";
 interface Props {
   initialValues: TaskFormValues;
   quest: string;
@@ -21,7 +27,7 @@ function ReusableTaskContext({ quest, initialValues }: Props) {
     if (authState.token) {
       setToken(authState.token);
     }
-  },[authState.token]);
+  }, [authState.token]);
 
   const handleInputChange = (event: any) => {
     setToken(event.target.value);
@@ -36,20 +42,36 @@ function ReusableTaskContext({ quest, initialValues }: Props) {
   };
 
   return (
-    <Grid>
+    <Grid sx={{paddingTop:12, justifyContent:"center", width:500,paddingLeft:12}}>
+    <Grid container justifyContent='flex-end' spacing={1} style={{ marginBottom: "5px",paddingRight:"25px" }}>
+  <Grid item>
+    <ReusableTooltipButton text={"iPl"} title={quest} imagePath={TooltipButton}/>
+  </Grid>
+  <Grid item>
+    <ReusableTooltipButton text={"iEn"} title={quest} imagePath={TooltipButton} />
+  </Grid>
+</Grid>
+
+
       <Grid>
         <Formik initialValues={initialValues} onSubmit={handleFormSubmit}>
           {() => (
             <Form>
-              <ReusableFormikInput name='task' placeholder='Nazwa zadania' label='Nazwa zadania' disabled={true} />
-              <Button type='submit' variant="contained">Wyślij</Button>
+              <Grid container sx={{justifyContent:'start'}}  spacing={4}>
+                <Grid item>
+                <ReusableFormikInput name='task' placeholder='Nazwa zadania' label='Nazwa zadania' disabled={true} inputFrame={InputFrame} /></Grid>
+                <Grid item>
+              <ReusableFormikButton imagePath={SendButton}>Send</ReusableFormikButton></Grid>
+              </Grid>
             </Form>
           )}
-        </Formik> 
+        </Formik>
       </Grid>
-      <Grid>{quest}</Grid>
-      <Grid>
-        <TextField label='token' variant='outlined' value={token} onChange={handleInputChange} disabled={true} />
+      <Grid sx={{pt:1,}}>
+      <ReusableTokenInput 
+          value={token}
+          onChange={handleInputChange} imagePath={TokenFrame}/>
+
       </Grid>
     </Grid>
   );

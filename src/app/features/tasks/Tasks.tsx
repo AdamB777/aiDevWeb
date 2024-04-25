@@ -1,6 +1,9 @@
-import { Checkbox, Grid, Paper, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material'
-import React, { useState } from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Box, Checkbox, Grid, Paper, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { Link, Outlet } from "react-router-dom";
+import SteampunkClick from "../../assets/icons/steampunkButton.png";
+import Menu from "../../assets/icons/menu.png";
+import Frame from "../../assets/icons/frame.png";
 
 interface Task {
   name: string;
@@ -8,13 +11,17 @@ interface Task {
 }
 
 const tasks: Task[] = [
-  { name: 'helloapi', path: '/helloapi' },
-  { name: 'embedding', path: '/embedding' },
-  // Dodaj więcej zadań tutaj
+  { name: "helloapi", path: "/helloapi" },
+  { name: "asddf", path: "/moderation" },
+  { name: "moderation", path: "/moderation" },
+  { name: "moderation", path: "/moderation" },
+  { name: "moderation", path: "/moderation" },
+  { name: "moderation", path: "/moderation" },
+  { name: "moderation", path: "/moderation" },
+  { name: "moderation", path: "/moderation" },
 ];
 
 function Tasks() {
-
   const [selectedTask, setSelectedTask] = useState<string | null>(null);
 
   const handleSelectTask = (taskName: string) => {
@@ -22,44 +29,81 @@ function Tasks() {
   };
 
   return (
-    <Grid container spacing={1} sx={{height:"100vh"}}>
-      <Grid item xs={2} sx={{bgcolor:'tomato'}}>
-        <Stack>
-          <Paper>
-            <Table>
-          <TableHead sx={{ bgcolor: 'darkgrey' }}>
-          <TableRow>
-              <TableCell colSpan={2} align='center'>
-                <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', width:'100%', textTransform: 'uppercase', alignItems:'center', textAlign:'center', justifyContent:'center' }}>
-                  Zadania
-                </Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
+    <Grid container spacing={0} sx={{ height: "770px", margin: "20px" }}>
+      <Grid
+        item
+        sx={{
+          position: "relative",
+          backgroundImage: `url(${Menu})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          width: 500,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "top",
+          flexDirection: "column",
+          marginRight:"100px",
+        }}>
+        <Stack sx={{ pt: "310px", pl: "15px" }}>
+          <Box sx={{ maxHeight: 240, overflow: "auto" }}>
+            <Table sx={{ width: "180px" }}>
               <TableBody>
                 {tasks.map((task, index) => (
-                  <TableRow key={task.name} sx={{ bgcolor: index % 2 === 0 ? 'white' : 'lightgrey' }}>
-                    <TableCell padding='checkbox'>
+                  <TableRow
+                    key={task.name}
+                    sx={{
+                      backgroundImage: `url(${SteampunkClick})`,
+                      backgroundSize: "contain",
+                      backgroundRepeat: "no-repeat",
+                      borderRadius: "5px",
+                      boxShadow: selectedTask === task.name ? "0px 4px 8px rgba(0, 0, 0, 0.5)" : "none",
+                      backgroundPosition: "center",
+                      cursor: "pointer",
+                      "& > *": { border: 0 },
+                    }}>
+                    <TableCell
+                      padding='checkbox'
+                      sx={{
+                        borderBottom: 0,
+                      }}>
                       <Checkbox
-                        color='primary'
+                        style={{ opacity: 0 }}
                         checked={selectedTask === task.name}
                         onChange={() => handleSelectTask(task.name)}
-                        onClick={(event)=>event.stopPropagation()}
+                        onClick={(event) => event.stopPropagation()}
                       />
                     </TableCell>
-                    <TableCell onClick={()=>handleSelectTask(task.name)} sx={{cursor:'pointer'}}>
-                      <Link to={task.path} style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <Typography>{task.name}</Typography>
+                    <TableCell
+                      onClick={() => handleSelectTask(task.name)}
+                      sx={{ cursor: "pointer", display: "flex", alignItems: "center", height: "100%", borderBottom: 0 }}>
+                      <Link to={task.path} style={{ textDecoration: "none", color: "inherit", width: "100%" }}>
+                        <Typography sx={{ fontFamily: "Rye, cursive", color: "#E8AB74", pl: "0px", flexGrow: 1, fontSize: "10px" }}>
+                          {task.name}
+                        </Typography>
                       </Link>
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
-          </Paper>
+          </Box>
         </Stack>
       </Grid>
-      <Grid item xs={10} sx={{ bgcolor: 'green' }}>
+      <Grid
+        item
+        sx={{
+          flexGrow: 1,
+          // position: "relative",
+          backgroundImage: `url(${Frame})`,
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          // display: "-ms-grid",
+          justifyContent: "center",
+          alignItems:"center",
+          // height:700,
+          // pb:30,
+          // pr:11
+        }}>
         <Outlet />
       </Grid>
     </Grid>

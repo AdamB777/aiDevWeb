@@ -1,4 +1,72 @@
 html,body{
     padding: 0;
-    margin: 0;
+    margin: auto;
+    width: 1200px;
+    background: rgb(24, 26, 25);
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); transform: scale(0.8)}
+    to { transform: rotate(360deg); transform: scale(1)}
+  }
+  
+  @keyframes shrink {
+    from { transform: scale(1); transform: rotate(0deg)}
+    to { transform: scale(0.8);transform: rotate(360deg) }
+  }
+  
+  @keyframes darken {
+    from { filter: brightness(100%); }
+    to { filter: brightness(80%); }
+  }
+
+  .rotate-animation {
+    animation: rotate 0.5s linear;
+  }
+  
+  .shrink-darken-animation {
+    animation: shrink 0.5s linear, darken, 0.5s linear;
+  }
+  .selected {
+    transform: scale(0.8);
+    filter: brightness(80%);
+  }
+  .menu-button {
+    background: url('') no-repeat center center; 
+    background-size: contain;
+    border: none; 
+    color: #E8AB74; 
+    font-family: 'Rye', serif; 
+    padding: 0px 0px 55px 25px;
+    cursor: pointer;
+    display: block;
+    width: 250px; 
+    height: 50px; 
+    border-radius: 10px; 
+    overflow: hidden; 
+    text-align: center;
+    line-height: 50px; 
+}
+
+.menu-button.selected {
+   
+}
+
+/* To ustawia wygląd paska przewijania */
+::-webkit-scrollbar {
+  width: 25px;
+  height: 25px;
+}
+
+/* Uchwyt paska przewijania */
+::-webkit-scrollbar-thumb {
+  background: url('../assets/icons/arrow_scroll.png') no-repeat;
+  height: 128px;
+  background-size: contain;
+}
+
+/* Tło paska przewijania */
+::-webkit-scrollbar-track {
+  background: none; /* Możesz to zmienić na dowolny kolor lub obraz */
+  height: 5px;
 }

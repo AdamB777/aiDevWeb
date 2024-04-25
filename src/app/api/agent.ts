@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { string } from "yup";
 import { Task } from "../models/task";
 import { HelloAPi, HelloApiAnswer } from "../models/helloapi";
+import { ModerationAnswer, ModerationApi, ModerationGPT } from "../models/moderation";
 
 axios.defaults.baseURL = "http://localhost:5000/api/";
 axios.defaults.withCredentials = true;
@@ -28,9 +29,15 @@ const HelloApis = {
   getHelloApiAnswer: (token: string) => request.get<HelloAPi>(`helloapi/getanswer/${token}`),
   postHelloApiAnswer: (answer: HelloApiAnswer) => request.post<void>(`helloapi/answer`, answer),
 };
-const agent={
-    Tasks,
-    HelloApis,
-}
+const Moderations = {
+  getModerationQuestions: (token: string) => request.get<ModerationApi>(`moderation/getanswer/${token}`),
+  postModerationGPT: (sentences: ModerationGPT) => request.post<void>(`moderation/moderate`, sentences),
+  postModerationAnswer: (answer: ModerationAnswer) => request.post<void>(`moderation/answermoderation`, answer),
+};
+const agent = {
+  Tasks,
+  HelloApis,
+  Moderations,
+};
 
 export default agent;

@@ -3,6 +3,7 @@ import App from "../App";
 import Tasks from "../features/tasks/Tasks";
 import HelloApi from "../features/tasks/HelloApi";
 import Embedding from "../features/tasks/Embedding";
+import Moderation from "../features/tasks/Moderation";
 
 export const router=createBrowserRouter([
     {
@@ -16,6 +17,10 @@ export const router=createBrowserRouter([
                     {
                         path:'helloapi',
                         element:<HelloApi/>
+                    },
+                    {
+                        path:'moderation',
+                        element:<Moderation/>
                     },
                     {
                         path:'embedding',
